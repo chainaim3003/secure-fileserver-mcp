@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/sse-server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "/dist/sse-server.js"
+    },
+    {
+      "src": "/mcp",
+      "dest": "/dist/sse-server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/sse-server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "dist/sse-server.js": {
+      "maxDuration": 30
+    }
+  }
+}
